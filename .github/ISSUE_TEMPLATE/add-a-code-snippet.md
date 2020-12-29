@@ -9,8 +9,7 @@ assignees: ''
 
 Code Snippet
 -------------
-
-<!-- Replace [CODE HERE] with the code --!>
+The actual code.
 ```py
 [CODE HERE]
 ```
