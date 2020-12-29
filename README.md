@@ -7,7 +7,7 @@ Table of Contents
 =================
 * [Get Combatants from Targets](#get-combatants-from-targets)
 * [Basic Roll String Construction](#basic-roll-string-construction)
-* [Get CVAR/UVAR or SVAR](#get-cvaruvar-or-svar)
+* [Load SVAR and overwrite from CVAR/UVAR](#load-svar-and-overwrite-from-cvaruvar)
 * [Search Through a List of Dictionaries](#search-through-a-list-of-dictionaries)
 
 
@@ -35,17 +35,17 @@ roll_str = f"{['1d20', '2d20kh1', '2d20kl1'][args.adv()]}{skill_mod:+}{f'+{b}' i
 </drac2>
 ```
 
-Get CVAR/UVAR or SVAR
+Load SVAR and overwrite from CVAR/UVAR
 ---------------------
 
-This fetches the CVAR or UVAR from a player, or tries to get the SVAR if it cannot find a CVAR/UVAR. It will return `None` if it does not find anything.
+This loads an SVAR as a dictionary from JSON and then tries to update the JSON using a CVAR/UVAR. Used for server settings with local overrides.
 
 Replaceables: 
 * `varname` - The variable you wish to store the C/U/SVAR in.
 * `CVAR_NAME` - The name of the CVAR/UVAR.
 * `SVAR_NAME` - The name of the SVAR.
 ```py
-{{varname = get('CVAR_NAME', get_svar('SVAR_NAME.'))}}
+{{varname = load_json(get_svar('SVAR_NAME', '{}')).update(load_json(get('CVAR_NAME', '{}')))}}
 ```
 
 Search Through a List of Dictionaries
@@ -61,5 +61,5 @@ Replaceables:
 * `out` - The resulting intersection (List of dictionaries that match the search.)
 
 ```py
-{{out = [x for x in search if search_var.lower() in x[search_key].lower()]}}
+{{out = [x for x in search if search_var.lower() in x["search_key"].lower()]}}
 ```
