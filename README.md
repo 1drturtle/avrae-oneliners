@@ -7,7 +7,8 @@ Table of Contents
 =================
 * [Get Combatants from Targets](#get-combatants-from-targets)
 * [Basic Roll String Construction](#basic-roll-string-construction)
-* [Get Cvar or Uvar](#get-cvar/uvar-or-svar)
+* [Get Cvar or Uvar](#get-cvaruvar-or-svar)
+* [Search through a list of dictionaries](#search-through-a-list-of-dictionaries.)
 
 
 Get Combatants from Targets
@@ -45,4 +46,20 @@ Replaceables:
 * `SVAR_NAME` - The name of the SVAR.
 ```py
 {{varname = get('CVAR_NAME', get_svar('SVAR_NAME.'))}}
+```
+
+Search Through a List of Dictionaries
+-------------------------------------
+
+This will search through a list of dictionaries to compare a value in the dictionary to a certain string.
+To make it an exact search, replace `in` with `==`. To make it case-sensitive, remove the two `.lower()`
+
+Replaceables:
+* `search_var` - The variable that we are searching for
+* `search_key` - The key in each dictionary we are looking at.
+* `search` - The list we are looking through.
+* `out` - The resulting intersection (List of dictionaries that match the search.)
+
+```py
+{{out = [x for x in search if search_var.lower() in x[search_key].lower()]}}
 ```
