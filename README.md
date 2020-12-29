@@ -7,7 +7,7 @@ Table of Contents
 =================
 * [Get Combatants from Targets](#get-combatants-from-targets)
 * [Basic Roll String Construction](#basic-roll-string-construction)
-* [Get Cvar or Uvar](#get-cvaruvar-or-svar)
+* [Get CVAR/UVAR or SVAR](#get-cvaruvar-or-svar)
 * [Search Through a List of Dictionaries](#search-through-a-list-of-dictionaries)
 
 
