@@ -17,10 +17,9 @@ The actual code.
 What does it do?
 -----------------
 
-<!-- Describe what the code snippet does here --!>
-
+Describe what the code snippet does here:
 
 Common Use-Cases
 ---------------------
 
-<!-- Give an example or two that would use this code snippet. --!>
+Give an example or two that would use this code snippet:
