@@ -27,11 +27,7 @@ This creates a simple roll string based off of a skill bonus (in this case Perce
 ```py
 <drac2>
 args = argparse(&ARGS&) # Parse our Arguments
-skill = character().skills.perception # Get the Perception skill from the currently active character
-roll_str = ['1d20', '2d20kh1', '2d20kl1'][args.adv()] # Select normal, advantage or disadvantage from the arguments.
-roll_str += f'+{skill.value}' # Add the skill bonus to the roll
-bonuses = ('+' + args.join('b', '+')) if args.get('b') else '' # Get all of our bonuses into one string.
-roll_str += bonuses # Add our bonuses to our roll
-check = vroll(roll_str) # Actually roll our string.
+skill_mod = character().skills.perception.value # Store our perception mod
+roll_str = f"{['1d20', '2d20kh1', '2d20kl1'][args.adv()]}{skill_mod:+}{f'+{b}' if (b := args.join('b', '+')) else ''}" # Construct our roll with adv parsing and bonuses.
 </drac2>
 ```
