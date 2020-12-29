@@ -11,6 +11,7 @@ Table of Contents
 * [Search Through a List of Dictionaries](#search-through-a-list-of-dictionaries)
 * [Get a Subclass for a certain Class](#get-a-subclass-for-a-certain-class)
 * [Change Die Size based on Level](#change-die-size-based-on-level)
+* [Simple Text Paginiation](#simple-text-paginiation)
 
 Contributing
 ===========
