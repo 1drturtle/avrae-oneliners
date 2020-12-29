@@ -76,6 +76,7 @@ Replaceables:
 Get a Subclass for a certain Class
 ----------------------------------
 
+*from TheReverendB#1377*
 This will get the player's subclass for a certain class. Will only work if said player has setup their character with the `!level` alias. If the player does not have a subclass, it will be `""`, an empty string.
 
 Replaceables:
@@ -88,6 +89,7 @@ Replaceables:
 Change Die Size based on Level
 ------------------------------
 
+*from TheReverendB#1377*
 This will create a dice string where the die string changes based on the character's level. The example shown below is for Monk's Martial Arts die.
 
 Replaceables:
@@ -96,4 +98,18 @@ Replaceables:
 ```py
 {{L=level}}
 {{dice = f"1d{4+2*((L>4)+(L>9)+(L>15))}"}}
+```
+
+Simple Text Paginiation
+-----------------------
+
+*from Croebh#5603*
+This takes a string and splits it into a bunch of smaller strings so that it doesn't break fields.
+
+Replaceables:
+* `textList` - Variable to store the list of strings in.
+* `1000` - The maximum length for each string.
+* `text` - The string that is split up.
+```py
+{{textList = [text[i:i+1000] for i in range(0, len(text), 1000)]}}
 ```
