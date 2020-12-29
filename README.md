@@ -3,6 +3,11 @@ Avrae One-Liners
 
 A list of commonly used one-liners/code snippets for use in the Draconic Scripting language.
 
+Table of Contents
+=================
+* [Get Combatants from Targets](#Get Combatants from Targets)
+
+
 Get Combatants from Targets
 ---------------------------
 
