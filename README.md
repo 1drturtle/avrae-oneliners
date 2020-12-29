@@ -9,6 +9,8 @@ Table of Contents
 * [Basic Roll String Construction](#basic-roll-string-construction)
 * [Load SVAR and overwrite from CVAR/UVAR](#load-svar-and-overwrite-from-cvaruvar)
 * [Search Through a List of Dictionaries](#search-through-a-list-of-dictionaries)
+* [Get a Subclass for a certain Class](#get-a-subclass-for-a-certain-class)
+* [Change Die Size based on Level](#change-die-size-based-on-level)
 
 Contributing
 ===========
@@ -69,4 +71,29 @@ Replaceables:
 
 ```py
 {{out = [x for x in search if search_var.lower() in x["search_key"].lower()]}}
+```
+
+Get a Subclass for a certain Class
+----------------------------------
+
+This will get the player's subclass for a certain class. Will only work if said player has setup their character with the `!level` alias. If the player does not have a subclass, it will be `""`, an empty string.
+
+Replaceables:
+* `sClass` - The variable to store the subclass in.
+* `XLevel` - The Class you want to use. `ClericLevel`, `BardLevel`, etc.
+```py
+{{sClass=load_json(get("subclass", "{}")).get("XLevel", "")}}
+```
+
+Change Die Size based on Level
+------------------------------
+
+This will create a dice string where the die string changes based on the character's level. The example shown below is for Monk's Martial Arts die.
+
+Replaceables:
+* `dice` - The variable to store the dice string in.
+
+```py
+{{L=level}}
+{{dice = f"1d{4+2*((L>4)+(L>9)+(L>15))}"}}
 ```
