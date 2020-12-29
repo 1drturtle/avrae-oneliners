@@ -34,6 +34,8 @@ This takes any targets made with `-t` and tries to convert them into combatants,
 Basic Roll String Construction
 ------------------------------
 
+*originally from Infinidoge#1337, modified*
+
 This creates a simple roll string based off of a skill bonus (in this case Perception) and provided arguments (`-b`, `adv`/`dis`)
 
 ```py
