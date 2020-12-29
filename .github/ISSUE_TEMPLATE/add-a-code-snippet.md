@@ -9,6 +9,7 @@ assignees: ''
 
 Code Snippet
 -------------
+
 <!-- Replace [CODE HERE] with the code --!>
 ```py
 [CODE HERE]
@@ -16,8 +17,11 @@ Code Snippet
 
 What does it do?
 -----------------
+
 <!-- Describe what the code snippet does here --!>
+
 
 Common Use-Cases
 ---------------------
+
 <!-- Give an example or two that would use this code snippet. --!>
