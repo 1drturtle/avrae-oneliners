@@ -10,6 +10,13 @@ Table of Contents
 * [Load SVAR and overwrite from CVAR/UVAR](#load-svar-and-overwrite-from-cvaruvar)
 * [Search Through a List of Dictionaries](#search-through-a-list-of-dictionaries)
 
+Contributing
+===========
+
+If you'd like to contribute, open an issue with the one-liner you'd like to add, what it does, and some example use cases for it!
+
+One Liners
+==========
 
 Get Combatants from Targets
 ---------------------------
