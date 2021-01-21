@@ -12,6 +12,7 @@ Table of Contents
 * [Get a Subclass for a certain Class](#get-a-subclass-for-a-certain-class)
 * [Change Die Size based on Level](#change-die-size-based-on-level)
 * [Simple Text Paginiation](#simple-text-paginiation)
+* [Detect if the User asks for Help](#detect-if-the-user asks-for-help)
 
 Contributing
 ===========
@@ -118,4 +119,17 @@ Replaceables:
 * `text` - The string that is split up.
 ```py
 {{textList = [text[i:i+1000] for i in range(0, len(text), 1000)]}}
+```
+
+Detect if the User asks for Help
+--------------------------------
+
+This checks if the user has asked for help by specifiying `help` or `?` as an argument, or by specifying no arguments.
+
+Replaceables:
+* `args` - Variable that has a list of arguments (usually called via `&ARGS&`)
+* `help` - Variable to store the value of if the user needs help or not.
+
+```py
+help = args[0].lower() in '?help' if args else True
 ```
