@@ -12,7 +12,7 @@ Table of Contents
 * [Get a Subclass for a certain Class](#get-a-subclass-for-a-certain-class)
 * [Change Die Size based on Level](#change-die-size-based-on-level)
 * [Simple Text Paginiation](#simple-text-paginiation)
-* [Detect if the User asks for Help](#detect-if-the-user asks-for-help)
+* [Detect if the User asks for Help](#detect-if-the-user-asks-for-help)
 
 Contributing
 ===========
