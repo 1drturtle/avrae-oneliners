@@ -13,6 +13,7 @@ Table of Contents
 * [Change Die Size based on Level](#change-die-size-based-on-level)
 * [Simple Text Paginiation](#simple-text-paginiation)
 * [Detect if the User asks for Help](#detect-if-the-user-asks-for-help)
+* [Optional Arguments](#optional-arguments)
 
 Contributing
 ===========
@@ -132,4 +133,19 @@ Replaceables:
 
 ```py
 help = args[0].lower() in '?help' if args else True
+```
+
+Optional Arguments
+------------------
+
+This allows you to get arguments that can be optional. To add more arguments, put more variables on the left side, and increase the amount of "N/A", as well as change the 3 to however many arguments you have.
+
+Replaceables:
+* `"N/A"` - What the variable should be if the user doesn't specify one. Possible option: `None`
+* `arg1` - Variable for first argument
+* `arg2` - Variable for second argument
+* `arg3` - Variable for third argument
+
+```py
+{{arg1, arg2, arg3 = (&ARGS& + ["N/A", "N/A", "N/A"])[:3]}}
 ```
