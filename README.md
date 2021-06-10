@@ -35,10 +35,10 @@ This takes any targets made with `-t` and tries to convert them into combatants,
 {{combatants = [c.get_combatant(t) for t in targets if c.get_combatant(t)] if c else []}}
 ```
 
-Basic Roll String Construction
+Roll a Skill Check
 ------------------------------
 
-*from TheReverendB#1377*
+*from TheReverendB#1377 Robbe#7964*
 
 This creates a simple roll string based off of a skill bonus (in this case Perception) and provided arguments (`-b`, `adv`/`dis`)
 
