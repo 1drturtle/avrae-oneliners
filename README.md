@@ -20,8 +20,9 @@ Contributing
 
 If you'd like to contribute, open an issue with the one-liner you'd like to add, what it does, and some example use cases for it!
 
-One Liners
+"One Liners"
 ==========
+(not always one line)
 
 Get Combatants from Targets
 ---------------------------
@@ -37,16 +38,36 @@ This takes any targets made with `-t` and tries to convert them into combatants,
 Basic Roll String Construction
 ------------------------------
 
-*originally from Infinidoge#1337, modified*
+*from TheReverendB#1377*
 
 This creates a simple roll string based off of a skill bonus (in this case Perception) and provided arguments (`-b`, `adv`/`dis`)
 
 ```py
 <drac2>
-args = argparse(&ARGS&) # Parse our Arguments
-base_roll = character().skills.perception.d20(base_adv=args.adv(boolwise=True)) # Make our roll with the advantage.
-roll_str = f"{base_roll}{f'+{b}' if (b := args.join('b', '+')) else ''}" # Add bonuses
-roll_out = vroll(roll_str) # Roll the check.
+#assign variables
+a,ch=argparse(&ARGS&), character()
+
+#grab the first argument and match it to a skill or default to perception
+skill = ([x for x,y in ch.skills if '&1&'.lower() in x.lower()]+['perception'])[0]
+
+#construct our skill roll, adding proficiency or expertise automatically via .d20(), rerolling 1s for Halfling Luck, applying Reliable Talent if proficient or expertise found in skill along with parsing for advantage/disadvantage and bonuses from our args.
+
+#grab adv/dis from our parsed args and make it a boolean. adv=True, dis=False, neither is None.
+adv = a.adv(boolwise=True)
+
+#grab the reroll number if the character has the csetting reroll or default to None
+reroll_number = ch.csettings.get("reroll", None)
+
+#grab a minimum from our args like a standard !check, (-mc #) or set it to 10 if the character has the csetting 'talent' set to True and has proficiency or expertise in the chosen skill.
+minimum_check = a.last('mc', None, int) or (10 if ch.csettings.get("talent", False) and ch.skills[skill].prof else None)
+
+#grab our bonuses, if any and add them to our roll
+bonus = ("+"+a.join('b', '+', '') if a.get('b') else '')
+
+#put all those arguments in the proper places in our d20() function, inside a vroll().
+r = vroll(ch.skills[skill].d20(adv, reroll_number, minimum_check)+bonus)
+
+return f"Your {skill} roll:\n{r}"
 </drac2>
 ```
 
