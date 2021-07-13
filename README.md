@@ -6,7 +6,7 @@ A list of commonly used one-liners/code snippets for use in the Draconic Scripti
 Table of Contents
 =================
 * [Get Combatants from Targets](#get-combatants-from-targets)
-* [Basic Roll String Construction](#basic-roll-string-construction)
+* [Roll a Skill Check](#roll-a-skill-check)
 * [Load SVAR and overwrite from CVAR/UVAR](#load-svar-and-overwrite-from-cvaruvar)
 * [Search Through a List of Dictionaries](#search-through-a-list-of-dictionaries)
 * [Get a Subclass for a certain Class](#get-a-subclass-for-a-certain-class)
@@ -34,6 +34,47 @@ This takes any targets made with `-t` and tries to convert them into combatants,
 {{targets = args.get('t') if args.get('t') else []}}
 {{combatants = [c.get_combatant(t) for t in targets if c.get_combatant(t)] if c else []}}
 ```
+
+### Get Combatants from Targets — With Group Support (AKA Nested Dicts)
+
+This takes any targets or groups made with `-t` and tries to convert them into combatants, and then stores them in a list called combatants.
+
+**Drac1 Version**
+```py
+#Basic Variables
+{{parse,c = argparse(&ARGS&),combat()}} 
+
+#Creates a list of targets that have been grabbed by -t
+{{t = parse.get('t')}}
+
+#tlist creates a list of combatants, either in their own list from the group, or by themselves. Combatants is a placeholder for the next line.
+{{tlist, combatants = [c.get_combatant(x) or c.get_group(x).combatants for x in t],[]}}
+
+#This searches for all the elements that are not lists and adds them to combatants, then joins the combatant-group list to the combatants list, allowing for everything to be in one list for further parsing.
+{{[combatants.append(x) if not typeof(x)=='SafeList' else combatants.extend(x) for x in tlist]}}
+```
+
+**Drac2 Version**
+```py
+<drac2>
+#Basic Variables
+parse, c = argparse(&ARGS&), combat()
+
+#Creates a list of targets that have been grabbed by -t
+targets = parse.get('t')
+
+#Combatants is a placeholder for the next line.
+combatants = []
+
+#This is an if statement for targets that checks if an element in it is a combatant, and appends them to the combatants list, else it gets the list of combatants from the group and joins it to the combatants list, allowing for everything to be in one list for further parsing.
+for x in targets:
+  if (combatant := combat().get_combatant(x) ):
+    combatants.append(combatant)
+  else:
+    combatants += combat().get_group(x).combatants
+</drac2>
+```
+
 
 Roll a Skill Check
 ------------------------------
