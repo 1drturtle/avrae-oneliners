@@ -81,34 +81,39 @@ Roll a Skill Check
 
 *from TheReverendB#1377 Robbe#7964*
 
-This creates a simple roll string based off of a skill bonus (in this case Perception) and provided arguments (`-b`, `adv`/`dis`)
+This creates a roll string based off of a skill and provided arguments (`-b`, `adv`/`dis`) along with grabbing some csettings like Reliable Talent and a Reroll number, if any.
 
 ```py
 <drac2>
-#assign variables
+# assign variables
 a,ch=argparse(&ARGS&), character()
 
-#grab the first argument and match it to a skill or default to perception
-skill = ([x for x,y in ch.skills if '&1&'.lower() in x.lower()]+['perception'])[0]
+# we can grab the first argument and match it to a skill or default to perception.
+# use `.replace()` to pull out any spaces and `.lower()` to make everything lowercase in case someone enters "SleighT of Hand".
+# you can skip this line if you are only going to be using a specific skill, and enter the skill manually in the vroll(), or make your own list of skills to match against an input.
 
-#construct our skill roll, adding proficiency or expertise automatically via .d20(), rerolling 1s for Halfling Luck, applying Reliable Talent if proficient or expertise found in skill along with parsing for advantage/disadvantage and bonuses from our args.
+skill = ([x for x,y in ch.skills if '&1&'.lower().replace(' ','') in x.lower()]+['perception'])[0]
 
-#grab adv/dis from our parsed args and make it a boolean. adv=True, dis=False, neither is None.
+
+# construct our skill roll, adding proficiency or expertise automatically via .d20(), rerolling 1s for Halfling Luck, applying Reliable Talent if proficient or expertise found in skill along with parsing for advantage/disadvantage and bonuses from our args.
+
+# grab adv/dis from our parsed args and make it a boolean. adv=True, dis=False, neither is None.
 adv = a.adv(boolwise=True)
 
-#grab the reroll number if the character has the csetting reroll or default to None
+# grab the reroll number if the character has the csetting reroll or default to None
 reroll_number = ch.csettings.get("reroll", None)
 
-#grab a minimum from our args like a standard !check, (-mc #) or set it to 10 if the character has the csetting 'talent' set to True and has proficiency or expertise in the chosen skill.
+# grab a minimum from our args like a standard !check, (-mc #) or set it to 10 if the character has the csetting 'talent' set to True and has proficiency or expertise in the chosen skill.
 minimum_check = a.last('mc', None, int) or (10 if ch.csettings.get("talent", False) and ch.skills[skill].prof else None)
 
-#grab our bonuses, if any and add them to our roll
+# add bonuses, if any and add them to our roll
 bonus = ("+"+a.join('b', '+', '') if a.get('b') else '')
 
-#put all those arguments in the proper places in our d20() function, inside a vroll().
+# put all those arguments in the proper places in our d20() function, inside a vroll().
 r = vroll(ch.skills[skill].d20(adv, reroll_number, minimum_check)+bonus)
 
-return f"Your {skill} roll:\n{r}"
+# return our roll, replacing the oddly formatted skills with properly spaced plain text.
+return f"Your {skill.replace('H', ' h').replace('O', ' o')} roll:\n{r}"
 </drac2>
 ```
 
