@@ -1,0 +1,41 @@
+<snippet>
+	<content><![CDATA[
+##### from TheReverendB#1377 Robbe#7964
+##### This creates a roll string based off of a skill and provided arguments (-b, adv/dis) along with grabbing some csettings like Reliable Talent and a Reroll number, if any.
+
+<drac2>
+# assign variables
+a,ch=argparse(&ARGS&), character()
+
+# we can grab the first argument and match it to a skill or default to perception.
+# use `.replace()` to pull out any spaces and `.lower()` to make everything lowercase in case someone enters "SleighT of Hand".
+# you can skip this line if you are only going to be using a specific skill, and enter the skill manually in the vroll(), or make your own list of skills to match against an input.
+
+skill = ([x for x,y in ch.skills if '&1&'.lower().replace(' ','') in x.lower()]+['perception'])[0]
+
+
+# construct our skill roll, adding proficiency or expertise automatically via .d20(), rerolling 1s for Halfling Luck, applying Reliable Talent if proficient or expertise found in skill along with parsing for advantage/disadvantage and bonuses from our args.
+
+# grab adv/dis from our parsed args and make it a boolean. adv=True, dis=False, neither is None.
+adv = a.adv(boolwise=True)
+
+# grab the reroll number if the character has the csetting reroll or default to None
+reroll_number = ch.csettings.get("reroll", None)
+
+# grab a minimum from our args like a standard !check, (-mc #) or set it to 10 if the character has the csetting 'talent' set to True and has proficiency or expertise in the chosen skill.
+minimum_check = a.last('mc', None, int) or (10 if ch.csettings.get("talent", False) and ch.skills[skill].prof else None)
+
+# add bonuses, if any and add them to our roll
+bonus = ("+"+a.join('b', '+', '') if a.get('b') else '')
+
+# put all those arguments in the proper places in our d20() function, inside a vroll().
+r = vroll(ch.skills[skill].d20(adv, reroll_number, minimum_check)+bonus)
+
+# return our roll, replacing the oddly formatted skills with properly spaced plain text.
+return f"Your {skill.replace('H', ' h').replace('O', ' o')} roll:\n{r}"
+</drac2>
+]]></content>
+	<tabTrigger>Roll Skill Check</tabTrigger>
+	<scope>source.draconic</scope>
+	<description> This creates a roll string based off of a skill and provided arguments (-b, adv/dis) along with grabbing some csettings like Reliable Talent and a Reroll number, if any. </description>
+</snippet>

@@ -1,0 +1,18 @@
+<snippet>
+	<content><![CDATA[
+##### from Croebh#5603
+
+### This takes a string and splits it into a bunch of smaller strings so that it doesn't break fields.
+
+# Replaceables:
+
+# textList - Variable to store the list of strings in.
+# 1000 - The maximum length for each string.
+# text - The string that is split up.
+
+{{${1:textList} = [text[i:i+${2:1000}] for i in range(0, len(${3:text}), 1000)]}}
+]]></content>
+	<tabTrigger>Text Paginiation</tabTrigger>
+	<scope>source.draconic</scope>
+	<description> This takes a string and splits it into a bunch of smaller strings so that it doesn't break fields. </description>
+</snippet>

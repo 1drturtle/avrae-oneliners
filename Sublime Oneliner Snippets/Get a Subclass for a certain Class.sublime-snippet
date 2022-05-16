@@ -1,0 +1,17 @@
+<snippet>
+	<content><![CDATA[
+##### from TheReverendB#1377
+
+### This will get the player's subclass for a certain class. Will only work if said player has setup their character with the !level alias. If the player does not have a subclass, it will be "", an empty string.
+
+# Replaceables:
+
+# sClass - The variable to store the subclass in.
+# XLevel - The Class you want to use. ClericLevel, BardLevel, etc.
+
+{{${1:sClass}=load_json(get("subclass", "{}")).get("${2:XLevel}", "")}}
+]]></content>
+	<tabTrigger>Get Subclass</tabTrigger>
+	<scope>source.draconic</scope>
+	<description> This will get the player's subclass for a certain class. Will only work if said player has setup their character with the !level alias. If the player does not have a subclass, it will be "", an empty string. </description>
+</snippet>

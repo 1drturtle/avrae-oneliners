@@ -1,0 +1,16 @@
+<snippet>
+	<content><![CDATA[
+### This loads an SVAR as a dictionary from JSON and then tries to update the JSON using a CVAR/UVAR. Used for server settings with local overrides.
+
+#Replaceables:
+
+#varname - The variable you wish to store the C/U/SVAR in.
+#CVAR_NAME - The name of the CVAR/UVAR.
+#SVAR_NAME - The name of the SVAR.
+
+{{${1:varname} = load_json(get_svar('${2:SVAR_NAME}', '{}')).update(load_json(get('${3:CVAR_NAME}', '{}')))}}
+]]></content>
+	<tabTrigger>SVAR Overwrite with Cvar</tabTrigger>
+	<scope>source.draconic</scope> 
+	<description> This loads an SVAR as a dictionary from JSON and then tries to update the JSON using a CVAR/UVAR. Used for server settings with local overrides. </description>
+</snippet>
