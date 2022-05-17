@@ -1,0 +1,17 @@
+<snippet>
+	<content><![CDATA[
+##### from TheReverendB#1377
+
+### This will create a dice string where the die string changes based on the character's level. The example shown below is for Monk's Martial Arts die.
+
+# Replaceables:
+
+# dice - The variable to store the dice string in.
+
+{{L=level}}
+{{${1:dice} = f"1d{4+2*((L>4)+(L>9)+(L>15))}"}}
+]]></content>
+	<tabTrigger>Level Dice Size</tabTrigger>
+	<scope>source.draconic</scope>
+	<description> This will create a dice string where the die string changes based on the character's level. The example shown below is for Monk's Martial Arts die. </description>
+</snippet>

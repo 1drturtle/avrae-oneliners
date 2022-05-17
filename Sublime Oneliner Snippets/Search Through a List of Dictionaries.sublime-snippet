@@ -1,0 +1,17 @@
+<snippet>
+	<content><![CDATA[
+### This will search through a list of dictionaries to compare a value in the dictionary to a certain string. To make it an exact search, replace in with ==. To make it case-sensitive, remove the two .lower()
+
+# Replaceables:
+
+# search_var - The variable that we are searching for
+# search_key - The key in each dictionary we are looking at.
+# search - The list we are looking through.
+# out - The resulting intersection (List of dictionaries that match the search.)
+
+{{${4:out} = [x for x in ${3:search} if ${1:search_var}.lower() in x["${2:search_key}"].lower()]}}
+]]></content>
+	<tabTrigger>Search List of Dictionaries</tabTrigger>
+	<scope>source.draconic</scope>
+	<description> This will search through a list of dictionaries to compare a value in the dictionary to a certain string. To make it an exact search, replace in with ==. To make it case-sensitive, remove the two .lower() </description>
+</snippet>
