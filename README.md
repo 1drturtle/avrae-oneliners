@@ -84,16 +84,13 @@ Roll a Skill Check
 This creates a roll string based off of a skill and provided arguments (`-b`, `adv`/`dis`) along with grabbing some csettings like Reliable Talent and a Reroll number, if any.
 
 ```py
-<drac2>
+!alias skillroll echo <drac2>
 # assign variables
 a,ch=argparse(&ARGS&), character()
 
-# we can grab the first argument and match it to a skill or default to perception.
-# use `.replace()` to pull out any spaces and `.lower()` to make everything lowercase in case someone enters "SleighT of Hand".
-# you can skip this line if you are only going to be using a specific skill, and enter the skill manually in the vroll(), or make your own list of skills to match against an input.
+# grab the first argument and match it to a skill or default to perception.  Use `.replace()` to pull out any spaces and `.lower()` to make everything lowercase incase someone enters "SleighT of Hand".  You can skip this line if you are only going to be using a specific skill, and enter the skill manually in the vroll(), or make your own list of skills to pull from.
 
 skill = ([x for x,y in ch.skills if '&1&'.lower().replace(' ','') in x.lower()]+['perception'])[0]
-
 
 # construct our skill roll, adding proficiency or expertise automatically via .d20(), rerolling 1s for Halfling Luck, applying Reliable Talent if proficient or expertise found in skill along with parsing for advantage/disadvantage and bonuses from our args.
 
@@ -103,11 +100,11 @@ adv = a.adv(boolwise=True)
 # grab the reroll number if the character has the csetting reroll or default to None
 reroll_number = ch.csettings.get("reroll", None)
 
-# grab a minimum from our args like a standard !check, (-mc #) or set it to 10 if the character has the csetting 'talent' set to True and has proficiency or expertise in the chosen skill.
-minimum_check = a.last('mc', None, int) or (10 if ch.csettings.get("talent", False) and ch.skills[skill].prof else None)
+# grab a minimum from our args like a standard !check, (-mc #) or set it to 10 if the character has the csetting 'talent' set to True and has proficiency or expertise in the chosen skill (but not JoAT).
+minimum_check = a.last('mc', None, int) or (10 if ch.csettings.get("talent", False) and ch.skills[skill].prof>=1 else None)
 
-# add bonuses, if any and add them to our roll
-bonus = ("+"+a.join('b', '+', '') if a.get('b') else '')
+# add bonuses, if any and add them to our roll.  We can also parse our args for the commonly used 'guidance' snippet.
+bonus = ("+"+a.join('b', '+', '') if a.get('b') else '') + ('+1d4' if a.get('guidance') else '')
 
 # put all those arguments in the proper places in our d20() function, inside a vroll().
 r = vroll(ch.skills[skill].d20(adv, reroll_number, minimum_check)+bonus)
